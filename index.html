@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="style.css">
+    <title>Digital Clock</title>
+</head>
+
+<body>
+    <div id="time">
+        <div class="circle" style="--clr:#ff2972;">
+            <div class="dots hrdot"></div>
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70" id="hh"></circle>
+            </svg>
+            <div id="hours">00</div>
+        </div>
+
+        <div class="circle" style="--clr:#fee800;">
+            <div class="dots mindot"></div>
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70" id="mm"></circle>
+            </svg>
+            <div id="minutes">00</div>
+        </div>
+        <div class="circle" style="--clr:#04fc43;">
+            <div class="dots secdot"></div>
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70" id="ss"></circle>
+            </svg>
+            <div id="seconds">00</div>
+        </div>
+
+        
+        <div class="ap">
+            <div id="ampm">AM</div>
+        </div>
+
+    </div>
+    <script>
+
+        setInterval(() => {
+
+            let hours = document.getElementById("hours");
+            let minutes = document.getElementById("minutes");
+            let seconds = document.getElementById("seconds");
+            let ampm = document.getElementById("ampm");
+
+            let hh = document.getElementById("hh");
+            let mm = document.getElementById("mm");
+        let ss = document.getElementById("ss");
+
+
+        let hrdot = document.querySelector(".hrdot");
+        let mindot = document.querySelector(".mindot");
+        let secdot = document.querySelector(".secdot");
+
+
+
+            let hrs = new Date().getHours();
+            let min = new Date().getMinutes();
+            let sec = new Date().getSeconds();
+            let antipostmer = hrs >= 12 ? "PM" : "AM";
+
+            if (hrs > 12) {
+                hrs = hrs - 12;
+            }
+            hrs = (hrs < 10) ? "0" + hrs : hrs;
+            min = (min < 10) ? "0" + min : min;
+            sec = (sec < 10) ? "0" + sec : sec;
+
+
+
+            hours.innerHTML = hrs + "<br><span>Hours</span>";
+            minutes.innerHTML = min + "<br><span>Minutes</span>";
+            seconds.innerHTML = sec + "<br><span>Seconds</span>";
+            ampm.innerHTML = antipostmer;
+
+            hh.style.strokeDashoffset = 440 - (440 * hrs)/ 12;
+            mm.style.strokeDashoffset = 440 - (440 * min)/ 60;
+            ss.style.strokeDashoffset = 440 - (440 * sec)/60;
+
+hrdot.style.transform = `rotate(${hrs * 30}deg)`;
+mindot.style.transform = `rotate(${min * 6}deg)`;
+secdot.style.transform = `rotate(${sec * 6}deg)`;
+
+
+        });
+
+
+
+
+
+    </script>
+</body>
+
+</html>
